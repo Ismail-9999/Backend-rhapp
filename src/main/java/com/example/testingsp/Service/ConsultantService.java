@@ -16,6 +16,9 @@ public interface ConsultantService {
 
     String updateConsultant(ConsultantUpDTO consultantUpDTO);
 
+    //nouveau
+    String closeConsultant( int consultantId);
+    String reopenConsultant(int consultantId);
     //void updateConsStatus();
 
     String getConsultantName(int consultantid);

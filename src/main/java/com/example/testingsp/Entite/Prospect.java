@@ -6,9 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+@Table(name = "prospect")
 
 @Entity
-@Table(name = "prospect")
 public class Prospect {
 
 @Id

@@ -61,7 +61,7 @@ public class SecurityCont {
                 .map(GrantedAuthority::getAuthority).collect(Collectors.joining(" "));
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                 .issuedAt(instant)
-                .expiresAt(instant.plus(20, ChronoUnit.MINUTES))
+                .expiresAt(instant.plus(100, ChronoUnit.MINUTES))
                 .subject(username)
                 .claim("scope",scope)
                 .build();

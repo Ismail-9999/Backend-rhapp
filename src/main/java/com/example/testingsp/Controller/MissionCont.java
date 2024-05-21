@@ -4,6 +4,8 @@ package com.example.testingsp.Controller;
 import com.example.testingsp.DTO.*;
 import com.example.testingsp.Service.MissionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +23,14 @@ public class MissionCont {
     public MissionService missionService ;
 
     @PostMapping("add")
+    @CacheEvict(value = "mission", allEntries = true)
     public  String savemission (@RequestBody MissionsaveDTO missionsaveDTO){
         String id = missionService.addMission(missionsaveDTO);
         return id ;
     }
 
     @GetMapping("mission")
+    @Cacheable("mission")
     public List<MissionDTO> showMission (){
         List<MissionDTO> allMission = missionService.showMission();
         return allMission ;
@@ -34,6 +38,7 @@ public class MissionCont {
 
 
     @PostMapping("/add/cons-mis")
+    @CacheEvict(value = "mission", allEntries = true)
     public ResponseEntity<Map<String, String>> addConsultantToSalarie(@RequestBody Map<String, Integer> requestBody) {
         int missionid = requestBody.get("missionid");
         int consultantid = requestBody.get("consultantid");

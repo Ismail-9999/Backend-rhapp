@@ -20,7 +20,7 @@ import java.util.Optional;
 
 
 @Service
-public class ProspectIMPL implements  ProspectService{
+public class ProspectIMPL implements  ProspectService {
 
     @Autowired
     public ProspectRepo prospectRepo ;
@@ -259,5 +259,10 @@ public class ProspectIMPL implements  ProspectService{
         return prospectRepo.findProspectsWithDisponibiliteNotRelance();
 
 }
+    @Override
+    public String getProspectNameById(Integer id) {
+        Optional<Prospect> prospectOptional = prospectRepo.findById(id);
+        return prospectOptional.map(Prospect::getNOM).orElse(null);
+    }
 }
 

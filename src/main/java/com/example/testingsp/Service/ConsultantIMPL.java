@@ -113,6 +113,33 @@ public class ConsultantIMPL implements ConsultantService {
         return null ;
     }
 
+
+    //nouveau
+    @Override
+    public  String closeConsultant(int consultantId) {
+        Optional<Consultant> optionalConsultant = consultantRepo.findById(consultantId);
+        if (optionalConsultant.isPresent()) {
+            Consultant consultant = optionalConsultant.get();
+            consultant.setStatus("Terminer");
+            consultantRepo.save(consultant);
+            return "Consultant closed successfully";
+        } else {
+            throw new EntityNotFoundException("Consultant not found with id: " + consultantId);
+        }
+    }
+    @Override
+    public  String reopenConsultant(int consultantId) {
+        Optional<Consultant> optionalConsultant = consultantRepo.findById(consultantId);
+        if (optionalConsultant.isPresent()) {
+            Consultant consultant = optionalConsultant.get();
+            consultant.setStatus("Consultant");
+            consultantRepo.save(consultant);
+            return "Consultant reopened successfully";
+        } else {
+            throw new EntityNotFoundException("Consultant not found with id: " + consultantId);
+        }
+    }
+
     @Override
     public String getConsultantName(int consultantid) {
         Optional<Consultant> consultantOptional = consultantRepo.findById(consultantid);

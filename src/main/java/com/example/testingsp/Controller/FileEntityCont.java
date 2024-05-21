@@ -7,15 +7,22 @@ import com.example.testingsp.DTO.FileEntityDTO;
 import com.example.testingsp.Repository.FileEntityRepo;
 import com.example.testingsp.Service.FileEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+
+import static java.nio.file.Paths.get;
+import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
 
 @RestController
 @CrossOrigin
@@ -42,8 +49,8 @@ public class FileEntityCont {
             }
 
             String originalFileName = file.getOriginalFilename();
-            String uniqueFileName = System.currentTimeMillis() + "_" + originalFileName;
-            Path filePath = Paths.get(UPLOAD_DIR, uniqueFileName);
+            String uniqueFileName =  originalFileName;
+            Path filePath = get(UPLOAD_DIR, uniqueFileName);
 
             file.transferTo(filePath.toFile());
             FileEntity fileEntity = new FileEntity(uniqueFileName, prospectId);
@@ -55,6 +62,7 @@ public class FileEntityCont {
             return ResponseEntity.status(500).body("Failed to upload the file");
         }
     }
+
     @GetMapping(path = "/files")
     public List<FileEntity> getAllFileEntities() {
         return fileEntityService.getAllFileEntities();
@@ -65,4 +73,46 @@ public class FileEntityCont {
         List<FileEntityDTO> allfiles = fileEntityService.showFiles();
         return allfiles;
     }
+
+
+   /* @GetMapping("/download/{prospectId}")
+    public ResponseEntity<String> downloadFile(String prospectId) throws IOException {
+        Path filePath = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize().resolve(prospectId);
+        if (!Files.exists(filePath)) {
+            throw new FileNotFoundException(prospectId + "was not found on the server");
+        }
+        String fileContent = new String(Files.readAllBytes(filePath));
+        HttpHeaders httpHeaders = new HttpHeaders();
+        //httpHeaders.add("File-Name", prospectId);
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + prospectId + "\"");
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
+                .headers(httpHeaders)
+                .body(fileContent);
+
+    }
+
+
+*/
+
+
+
+    @GetMapping("/download/{filename}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable ("filename") String filename) throws IOException {
+        Path filePath = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize().resolve(filename);
+        if (!Files.exists(filePath) ) {
+            throw new FileNotFoundException( filename + "was not found on the server");
+        }
+
+        Resource resource = new UrlResource(filePath.toUri());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("FileName",filename);
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
+                .headers(httpHeaders)
+                .body(resource);
+    }
+
+
 }

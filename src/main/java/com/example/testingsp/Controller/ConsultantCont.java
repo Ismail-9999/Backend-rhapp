@@ -8,6 +8,8 @@ import com.example.testingsp.Repository.ConsultantRepo;
 import com.example.testingsp.Service.ConsultantService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -25,15 +27,15 @@ import java.util.Map;
 public class ConsultantCont {
 
     @Autowired
-    public ConsultantService consultantService ;
+    public ConsultantService consultantService;
     @Autowired
-    public ConsultantRepo consultantRepo ;
+    public ConsultantRepo consultantRepo;
 
     @GetMapping(path = "consultantOP")
     public Page<Consultant> getAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
-    ){
+    ) {
 
         PageRequest pageRequest = PageRequest.of(page, size);
 
@@ -44,18 +46,21 @@ public class ConsultantCont {
     }
 
     @GetMapping(path = "consultant")
-    public List<ConsultantDTO> showCons(){
+    @Cacheable("consulting")
+    public List<ConsultantDTO> showCons() {
         List<ConsultantDTO> allConsultant = consultantService.showConsultant();
-        return  allConsultant ;
+        return allConsultant;
     }
 
     @PostMapping("add")
-    public  String saveconsultant (@RequestBody ConsultantSaveDTO consultantSaveDTO){
+    @CacheEvict(value = "consulting", allEntries = true)
+    public String saveconsultant(@RequestBody ConsultantSaveDTO consultantSaveDTO) {
         String id = consultantService.addConsultant(consultantSaveDTO);
-        return id ;
+        return id;
     }
 
     @PutMapping("/update")
+    @CacheEvict(value = "consulting", allEntries = true)
     public ResponseEntity<String> updateConsultant(@RequestBody ConsultantUpDTO consultantUpDTO) {
         String result = consultantService.updateConsultant(consultantUpDTO);
         if (result.startsWith("Consultant updated")) {
@@ -64,6 +69,43 @@ public class ConsultantCont {
             return ResponseEntity.notFound().build();
         }
     }
+
+    //new
+    @PutMapping("/close/{consultantId}")
+    @CacheEvict(value = "consulting", allEntries = true)
+    public ResponseEntity<String> closeConsultant(@PathVariable int consultantId) {
+        try {
+            String result = consultantService.closeConsultant(consultantId);
+            if (result.startsWith("Consultant closed")) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch(EntityNotFoundException ex){
+                return ResponseEntity.notFound().build();
+            } catch(Exception ex){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+    }
+
+    @PutMapping("/reopen/{consultantId}")
+    @CacheEvict(value = "consulting", allEntries = true)
+    public ResponseEntity<String> reopenConsultant(@PathVariable int consultantId) {
+        try {
+            String result = consultantService.reopenConsultant(consultantId);
+            if(result.startsWith("Consultant reopened")) {
+                return ResponseEntity.ok(result);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
 
     /*@PutMapping("/updateConsStatus")
     public ResponseEntity<String> updateConsultantStatusManually() {
@@ -75,6 +117,7 @@ public class ConsultantCont {
 
 
     @DeleteMapping (path="/delete/{id}")
+    @CacheEvict(value = "consulting", allEntries = true)
     public String deleteConsultant(@PathVariable(value = "id")int id)
     {
         boolean deleteConsultant = consultantService.deleteConsultant(id);
@@ -127,3 +170,21 @@ public class ConsultantCont {
     }
 
 }
+
+
+    /*@PutMapping("/update")
+    public ResponseEntity<String> updateConsultant(@RequestBody ConsultantUpDTO consultantUpDTO) {
+        String result = consultantService.updateConsultant(consultantUpDTO);
+        if (result.startsWith("Consultant updated")) {
+
+            if (consultantUpDTO.getStatus().equals("Terminé")) {
+                consultantService.closeConsultant(consultantUpDTO.getConsultantid());
+            }
+            return ResponseEntity.ok(result);
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+     */

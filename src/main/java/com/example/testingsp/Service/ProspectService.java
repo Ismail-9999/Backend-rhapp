@@ -33,4 +33,6 @@ public interface ProspectService {
     List<Prospect> getProspectsWithDisponibiliteNotRelance();
 
     /*List<ProspectDTO> getProspectsWithDisponibiliteNotRelance();*/
+
+    String getProspectNameById(Integer id);
 }

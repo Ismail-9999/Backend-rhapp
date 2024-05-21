@@ -7,6 +7,8 @@ import com.example.testingsp.Entite.Prospect;
 import com.example.testingsp.Service.ProspectService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -24,12 +26,14 @@ private ProspectService prospectService ;
 
 
     @PostMapping(path = "add")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public String savepros (@RequestBody ProspectSaveDTO prospectSaveDTO){
         String id = prospectService.addProspect(prospectSaveDTO);
         return id ;
     }
 
     @PutMapping("/update")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public ResponseEntity<String> updateProspect(@RequestBody ProspectUpDTO prospectUpDTO) {
         String result = prospectService.updateProspect(prospectUpDTO);
         if (result.startsWith("Prospect updated")) {
@@ -41,6 +45,7 @@ private ProspectService prospectService ;
 
 
     @GetMapping(path = "prospect")
+    @Cacheable("prospecting")
     public List<ProspectDTO> showProspect(){
     List<ProspectDTO> allProspect = prospectService.showProspect();
     return allProspect ;
@@ -108,6 +113,7 @@ private ProspectService prospectService ;
 
 
     @DeleteMapping (path="/delete/{id}")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public String deleteProspect(@PathVariable(value = "id")int id)
     {
         boolean deleteProspect = prospectService.deleteProspect(id);
@@ -138,4 +144,14 @@ private ProspectService prospectService ;
         prospectService.updateProspectStatus();
         return ResponseEntity.ok("Prospect status update initiated.");
     }
+    @GetMapping("/nameID/{id}")
+    public ResponseEntity<String> getNameProspect(@PathVariable Integer id) {
+           String ProspectName = prospectService.getProspectNameById(id);
+           if(ProspectName != null) {
+               return ResponseEntity.ok(ProspectName);
+           } else {
+               return ResponseEntity.notFound().build();
+           }
+    }
+
 }
