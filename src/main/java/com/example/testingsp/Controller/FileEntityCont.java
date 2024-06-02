@@ -7,6 +7,8 @@ import com.example.testingsp.DTO.FileEntityDTO;
 import com.example.testingsp.Repository.FileEntityRepo;
 import com.example.testingsp.Service.FileEntityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -25,18 +27,19 @@ import static java.nio.file.Paths.get;
 import static org.springframework.http.HttpHeaders.CONTENT_DISPOSITION;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://i-team.ma"})
 @RequestMapping(path = "/api/files")
 public class FileEntityCont {
 
     private static final String UPLOAD_DIR = "C:\\Users\\DELL\\OneDrive\\Bureau\\RHAPP\\Angular_rh-main\\Cv_tech\\Uploaded_Cvtech";
-
+     //  private static final String UPLOAD_DIR = "/home/iteamma/public_html/grh/Cv_tech/Uploaded_Cvtech";
     @Autowired
     private FileEntityRepo fileEntityRepo;
     @Autowired
     private FileEntityService fileEntityService;
 
     @PostMapping(path = "/savefile/{prospectId}")
+    @CacheEvict(value = "file", allEntries = true)
     public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
                                                    @PathVariable String prospectId) {
         if (file.isEmpty()) {
@@ -64,11 +67,13 @@ public class FileEntityCont {
     }
 
     @GetMapping(path = "/files")
+    @CacheEvict(value = "file", allEntries = true)
     public List<FileEntity> getAllFileEntities() {
         return fileEntityService.getAllFileEntities();
     }
 
     @GetMapping(path = "show")
+    @Cacheable("file")
     public List<FileEntityDTO> showFiles() {
         List<FileEntityDTO> allfiles = fileEntityService.showFiles();
         return allfiles;
@@ -98,6 +103,7 @@ public class FileEntityCont {
 
 
     @GetMapping("/download/{filename}")
+    @CacheEvict(value = "file", allEntries = true)
     public ResponseEntity<Resource> downloadFile(@PathVariable ("filename") String filename) throws IOException {
         Path filePath = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize().resolve(filename);
         if (!Files.exists(filePath) ) {

@@ -34,6 +34,9 @@ public class ProspectIMPL implements  ProspectService {
     @Override
     public String addProspect(ProspectSaveDTO prospectSaveDTO){
 
+       // System.out.println("dateCreation: " + prospectSaveDTO.getDateCreation());
+        // System.out.println("userCreation: " + prospectSaveDTO.getUserCreation());
+
         Prospect prospect = new Prospect(
                 prospectSaveDTO.getEMAIL(),
                 prospectSaveDTO.getNOM(),
@@ -50,13 +53,19 @@ public class ProspectIMPL implements  ProspectService {
                 prospectSaveDTO.getCOMPETENCETECHNIQUE(),
                 prospectSaveDTO.getDISPONIBILITE(),
                 prospectSaveDTO.getEXPERIENCEPROFESSIONNELLE(),
+                prospectSaveDTO.getPROJETPROFESSIONNEL(),
                 prospectSaveDTO.getFORMATION(),
+                prospectSaveDTO.getCERTIFICATION(),
                 prospectSaveDTO.getLANGUE(),
                 prospectSaveDTO.getMAJCV(),
                 prospectSaveDTO.getMOTCLE(),
                 prospectSaveDTO.getNIVEAUACADEMIQUE(),
                 prospectSaveDTO.getRl_majcv(),
-                prospectSaveDTO.getRl_desc()
+                prospectSaveDTO.getRl_desc(),
+                prospectSaveDTO.getDateCreation(),
+                prospectSaveDTO.getUserCreation()
+
+
          );
     prospectRepo.save(prospect);
     return prospect.getNOM();
@@ -88,13 +97,17 @@ public class ProspectIMPL implements  ProspectService {
                 i.getCOMPETENCETECHNIQUE(),
                 i.getDISPONIBILITE(),
                 i.getEXPERIENCEPROFESSIONNELLE(),
+                i.getPROJETPROFESSIONNEL(),
                 i.getFORMATION(),
+                i.getCERTIFICATION(),
                 i.getLANGUE(),
                 i.getMAJCV(),
                 i.getMOTCLE(),
                 i.getNIVEAUACADEMIQUE(),
                 i.getRl_majcv(),
-                i.getRl_desc()
+                i.getRl_desc(),
+                i.getDateCreation(),
+                i.getUserCreation()
         );
         prospectDTOList.add(prospectDTO);
     }
@@ -119,9 +132,11 @@ public class ProspectIMPL implements  ProspectService {
             prospect.setLANGUE(prospectUpDTO.getLANGUE());
             prospect.setANNEEEXPERIENCE(prospectUpDTO.getANNEEEXPERIENCE());
             prospect.setFORMATION(prospectUpDTO.getFORMATION());
+            prospect.setCERTIFICATION(prospectUpDTO.getCERTIFICATION());
             prospect.setDISPONIBILITE(prospectUpDTO.getDISPONIBILITE());
             prospect.setEMAIL(prospectUpDTO.getEMAIL());
             prospect.setEXPERIENCEPROFESSIONNELLE(prospectUpDTO.getEXPERIENCEPROFESSIONNELLE());
+            prospect.setPROJETPROFESSIONNEL(prospectUpDTO.getPROJETPROFESSIONNEL());
             prospect.setDateNaissance(prospectUpDTO.getDateNaissance());
             prospect.setCOMPETENCETECHNIQUE(prospectUpDTO.getCOMPETENCETECHNIQUE());
             prospect.setPAYSRESIDENCE(prospectUpDTO.getPAYSRESIDENCE());

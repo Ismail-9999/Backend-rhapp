@@ -38,7 +38,10 @@ public class ConsultantIMPL implements ConsultantService {
                 consultantSaveDTO.getCompetencemetier(),
                 consultantSaveDTO.getTJM(),
                 consultantSaveDTO.getMobile(),
-                consultantSaveDTO.getMission()
+                consultantSaveDTO.getMission(),
+                consultantSaveDTO.getDateCreation(),
+                consultantSaveDTO.getUserCreation()
+
 
         );
         consultantRepo.save(consultant);
@@ -64,7 +67,9 @@ public class ConsultantIMPL implements ConsultantService {
                     i.getCompetencemetier(),
                     i.getTJM(),
                     i.getMobile(),
-                    i.getMission()
+                    i.getMission(),
+                    i.getDateCreation(),
+                    i.getUserCreation()
 
             );
             consultantDTOList.add(consultantDTO);

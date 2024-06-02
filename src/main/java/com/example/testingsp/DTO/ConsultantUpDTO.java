@@ -21,13 +21,15 @@ public class ConsultantUpDTO {
 
 
     private int mobile;
+    private Date dateCreation;
+    private String userCreation;
 
 
 
     public ConsultantUpDTO() {
     }
 
-    public ConsultantUpDTO(int consultantid, String consultantname, String status, String consultantcin, Date consultantbirthdate, String experiencepro, String secteuractivite, String email, String competencemetier, long TJM, int mobile) {
+    public ConsultantUpDTO(int consultantid, String consultantname, String status, String consultantcin, Date consultantbirthdate, String experiencepro, String secteuractivite, String email, String competencemetier, long TJM, int mobile, Date dateCreation, String userCreation) {
         this.consultantid = consultantid;
         this.consultantname = consultantname;
         this.status = status;
@@ -39,6 +41,8 @@ public class ConsultantUpDTO {
         this.competencemetier = competencemetier;
         this.TJM = TJM;
         this.mobile = mobile;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
     public int getConsultantid() {
@@ -128,6 +132,10 @@ public class ConsultantUpDTO {
     public void setMobile(int mobile) {
         this.mobile = mobile;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
 
     @Override
@@ -144,6 +152,8 @@ public class ConsultantUpDTO {
                 ", competencemetier='" + competencemetier + '\'' +
                 ", TJM=" + TJM +
                 ", mobile=" + mobile +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

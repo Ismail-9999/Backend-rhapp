@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://i-team.ma"})
 @RequestMapping("api/prospect")
 public class ProspectCont {
 
@@ -52,6 +52,7 @@ private ProspectService prospectService ;
         }
 
         @GetMapping(path = "/norelance")
+        @CacheEvict(value = "prospecting", allEntries = true)
         public List<Prospect> getProspectsWithDisponibiliteNotRelance() {
             return prospectService.getProspectsWithDisponibiliteNotRelance();
         }
@@ -67,6 +68,7 @@ private ProspectService prospectService ;
             }
         }*/
        @GetMapping("/{idtiers}")
+       @CacheEvict(value = "prospecting", allEntries = true)
        public ResponseEntity<ProspectDTO> getProspectbyId(@PathVariable int idtiers) {
            try {
                Prospect prospect = prospectService.getProspectbyId(idtiers);
@@ -98,13 +100,17 @@ private ProspectService prospectService ;
                 prospect.getCOMPETENCETECHNIQUE(),
                 prospect.getDISPONIBILITE(),
                 prospect.getEXPERIENCEPROFESSIONNELLE(),
+                prospect.getPROJETPROFESSIONNEL(),
                 prospect.getFORMATION(),
+                prospect.getCERTIFICATION(),
                 prospect.getLANGUE(),
                 prospect.getMAJCV(),
                 prospect.getMOTCLE(),
                 prospect.getNIVEAUACADEMIQUE(),
                 prospect.getRl_majcv(),
-                prospect.getRl_desc()
+                prospect.getRl_desc(),
+                prospect.getDateCreation(),
+                prospect.getUserCreation()
 
         );
 
@@ -121,6 +127,7 @@ private ProspectService prospectService ;
     }
 
     @PostMapping("/convert/{idtiers}")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public ResponseEntity<Consultant> convertToConsultant(@PathVariable int idtiers){
         Consultant consultant = prospectService.convertToConsultant(idtiers);
         return ResponseEntity.ok(consultant);
@@ -129,22 +136,26 @@ private ProspectService prospectService ;
 
 
     @GetMapping("/chart")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public List<ProsDto> getChart() {
         return prospectService.getChartData();
     }
 
 
     @GetMapping("/maj")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public List<MajProsDTO> getMajData() {
         return prospectService.getMajData();
     }
 
     @PostMapping("/updateStatus")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public ResponseEntity<String> updateProspectStatusManually() {
         prospectService.updateProspectStatus();
         return ResponseEntity.ok("Prospect status update initiated.");
     }
     @GetMapping("/nameID/{id}")
+    @CacheEvict(value = "prospecting", allEntries = true)
     public ResponseEntity<String> getNameProspect(@PathVariable Integer id) {
            String ProspectName = prospectService.getProspectNameById(id);
            if(ProspectName != null) {

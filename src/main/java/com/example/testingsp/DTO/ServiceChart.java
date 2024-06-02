@@ -2,6 +2,7 @@ package com.example.testingsp.DTO;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class ServiceChart {
 
@@ -13,11 +14,13 @@ public class ServiceChart {
 
     private long countmis ;
 
+
     public ServiceChart(String consultantname, long tjm, String clientname, long countmis) {
         this.consultantname = consultantname;
         this.tjm = tjm;
         this.clientname = clientname;
         this.countmis = countmis;
+
     }
 
     public String getConsultantname() {
@@ -51,4 +54,5 @@ public class ServiceChart {
     public void setCountmis(long countmis) {
         this.countmis = countmis;
     }
+
 }

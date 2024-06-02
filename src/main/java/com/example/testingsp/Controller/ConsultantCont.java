@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://i-team.ma"})
 @RequestMapping(path = "/api/consultant")
 public class ConsultantCont {
 
@@ -125,6 +125,7 @@ public class ConsultantCont {
     }
 
     @GetMapping("/{consultantid}")
+    @CacheEvict(value = "consulting", allEntries = true)
     public ResponseEntity<ConsultantDTO> getProspectbyId(@PathVariable int consultantid) {
         try {
             Consultant consultant = consultantService.getConsultantbyId(consultantid);
@@ -150,13 +151,16 @@ public class ConsultantCont {
                 consultant.getCompetencemetier(),
                 consultant.getTJM(),
                 consultant.getMobile(),
-                consultant.getMission()
+                consultant.getMission(),
+                consultant.getDateCreation(),
+                consultant.getUserCreation()
         ) ;
         return consultantDTO ;
     }
 
 
     @GetMapping(value = "/name/{consultantId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(value = "consulting", allEntries = true)
     public ResponseEntity<Map<String, String>> getConsultantName(@PathVariable int consultantId) {
         String consultantName = consultantService.getConsultantName(consultantId);
         if (consultantName != null) {

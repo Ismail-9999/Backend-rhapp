@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Date;
+
 
 public class FileEntityDTO {
 
@@ -15,6 +17,7 @@ public class FileEntityDTO {
 
     private String prospectId;
 
+
     public FileEntityDTO() {
     }
 
@@ -22,6 +25,7 @@ public class FileEntityDTO {
         this.id = id;
         this.fileName = fileName;
         this.prospectId = prospectId;
+
     }
 
     public Long getId() {
@@ -47,6 +51,7 @@ public class FileEntityDTO {
     public void setProspectId(String prospectId) {
         this.prospectId = prospectId;
     }
+
 
     @Override
     public String toString() {

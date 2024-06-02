@@ -5,13 +5,14 @@ import com.example.testingsp.DTO.TestingspDTO;
 import com.example.testingsp.Entite.TestingSP;
 import com.example.testingsp.Service.TestingspService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://i-team.ma"})
 @RequestMapping("restapi/test")
 public class TestingCont {
 
@@ -29,6 +30,7 @@ public class TestingCont {
 
 
     @GetMapping (path = "/sp")
+    @Cacheable("testing")
     public List<TestingspDTO> showTest(){
         List<TestingspDTO> allTest = testingspService.showTest();
         return allTest ;

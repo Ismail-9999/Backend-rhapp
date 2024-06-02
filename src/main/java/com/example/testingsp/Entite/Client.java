@@ -2,7 +2,9 @@ package com.example.testingsp.Entite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.springframework.data.auditing.CurrentDateTimeProvider;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +20,8 @@ public class Client {
     private String client_add ;
 
     private String client_ice ;
+    private Date dateCreation;
+    private String userCreation;
 
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -28,22 +32,26 @@ public class Client {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Apoffres> apofres ;
 
-    public Client(int clientid, String clientname, String client_add, String client_ice, List<Mission> mission, List<Apoffres> apofres) {
+    public Client(int clientid, String clientname, String client_add, String client_ice, List<Mission> mission, List<Apoffres> apofres, Date dateCreation, String userCreation) {
         this.clientid = clientid;
         this.clientname = clientname;
         this.client_add = client_add;
         this.client_ice = client_ice;
         this.mission = mission;
         this.apofres = apofres;
+        this.dateCreation = dateCreation;
+        this.userCreation= userCreation;
     }
 
 
-    public Client(String clientname, String client_add, String client_ice, List<Mission> mission, List<Apoffres> apofres) {
+    public Client(String clientname, String client_add, String client_ice, List<Mission> mission, List<Apoffres> apofres, Date dateCreation, String userCreation) {
         this.clientname = clientname;
         this.client_add = client_add;
         this.client_ice = client_ice;
         this.mission = mission;
         this.apofres = apofres;
+        this.dateCreation = dateCreation;
+        this.userCreation= userCreation;
     }
 
     public Client() {
@@ -96,6 +104,10 @@ public class Client {
     public void setApofres(List<Apoffres> apofres) {
         this.apofres = apofres;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
 
     @Override
@@ -107,6 +119,8 @@ public class Client {
                 ", client_ice='" + client_ice + '\'' +
                 ", mission=" + mission +
                 ", apofres=" + apofres +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://i-team.ma"})
 @RequestMapping(path = "/api/mission")
 public class MissionCont {
 
@@ -52,6 +52,7 @@ public class MissionCont {
     }
 
     @GetMapping(value = "/name/{missionId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CacheEvict(value = "mission", allEntries = true)
     public ResponseEntity<Map<String, String>> getMissionName(@PathVariable int missionId) {
         String designation = missionService.getMissionDes(missionId);
         if (designation != null) {
@@ -66,12 +67,14 @@ public class MissionCont {
 
 
     @GetMapping("/msdata")
+    @CacheEvict(value = "mission", allEntries = true)
     public ResponseEntity<List<Object[]>> getChartData() {
         List<Object[]> chartData =  missionService.getServicesdata();
         return ResponseEntity.ok(chartData);
     }
 
     @GetMapping("/clidata")
+    @CacheEvict(value = "mission", allEntries = true)
     public ResponseEntity<List<Object[]>> getChart2Data() {
         List<Object[]> chartData =  missionService.getClientdata();
         return ResponseEntity.ok(chartData);
@@ -81,6 +84,7 @@ public class MissionCont {
 
 
     @GetMapping("/dstab")
+    @CacheEvict(value = "mission", allEntries = true)
     public List<ServiceChart> getDashtable() {
         return missionService.getDashTable();
     }

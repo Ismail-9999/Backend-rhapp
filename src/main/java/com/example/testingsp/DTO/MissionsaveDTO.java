@@ -4,6 +4,7 @@ import com.example.testingsp.Entite.Client;
 import com.example.testingsp.Entite.Consultant;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 public class MissionsaveDTO {
@@ -16,8 +17,10 @@ public class MissionsaveDTO {
 
     private List<Consultant> missions;
     private Client client ;
+    private Date dateCreation;
+    private String userCreation;
 
-    public MissionsaveDTO(String mission_ref, String designation, String lieuimput, String entite, BigDecimal nombrej, List<Consultant> missions, Client client) {
+    public MissionsaveDTO(String mission_ref, String designation, String lieuimput, String entite, BigDecimal nombrej, List<Consultant> missions, Client client, Date dateCreation, String userCreation) {
         this.mission_ref = mission_ref;
         this.designation = designation;
         this.lieuimput = lieuimput;
@@ -25,6 +28,8 @@ public class MissionsaveDTO {
         this.nombrej = nombrej;
         this.missions = missions;
         this.client = client;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
     public MissionsaveDTO() {
@@ -85,6 +90,10 @@ public class MissionsaveDTO {
     public void setClient(Client client) {
         this.client = client;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
     @Override
     public String toString() {
@@ -96,6 +105,8 @@ public class MissionsaveDTO {
                 ", nombrej=" + nombrej +
                 ", missions=" + missions +
                 ", client=" + client +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

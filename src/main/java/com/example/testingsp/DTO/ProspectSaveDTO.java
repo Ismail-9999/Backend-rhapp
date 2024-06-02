@@ -18,12 +18,14 @@ public class ProspectSaveDTO {
 
     private String PROFESSION ;
     private String SEXE ;
-    private long ANNEEEXPERIENCE ;
+    private String ANNEEEXPERIENCE ;
     private String COMPETENCEMETIER ;
     private String COMPETENCETECHNIQUE ;
     private String DISPONIBILITE ;
     private String EXPERIENCEPROFESSIONNELLE ;
+    private String PROJETPROFESSIONNEL;
     private String FORMATION;
+    private String CERTIFICATION;
     private String LANGUE;
 
     private String MAJCV;
@@ -33,8 +35,10 @@ public class ProspectSaveDTO {
 
     private Date rl_majcv ;
     private String rl_desc ;
+    private Date dateCreation;
+    private String userCreation;
 
-    public ProspectSaveDTO(String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, long ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String FORMATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc) {
+    public ProspectSaveDTO(String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION, String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation) {
         this.EMAIL = EMAIL;
         this.NOM = NOM;
         this.status = status;
@@ -50,13 +54,17 @@ public class ProspectSaveDTO {
         this.COMPETENCETECHNIQUE = COMPETENCETECHNIQUE;
         this.DISPONIBILITE = DISPONIBILITE;
         this.EXPERIENCEPROFESSIONNELLE = EXPERIENCEPROFESSIONNELLE;
+        this.PROJETPROFESSIONNEL = PROJETPROFESSIONNEL;
         this.FORMATION = FORMATION;
+        this.CERTIFICATION = CERTIFICATION;
         this.LANGUE = LANGUE;
         this.MAJCV = MAJCV;
         this.MOTCLE = MOTCLE;
         this.NIVEAUACADEMIQUE = NIVEAUACADEMIQUE;
         this.rl_majcv = rl_majcv;
         this.rl_desc = rl_desc;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
     public ProspectSaveDTO() {
@@ -142,11 +150,11 @@ public class ProspectSaveDTO {
         this.SEXE = SEXE;
     }
 
-    public long getANNEEEXPERIENCE() {
+    public String getANNEEEXPERIENCE() {
         return ANNEEEXPERIENCE;
     }
 
-    public void setANNEEEXPERIENCE(long ANNEEEXPERIENCE) {
+    public void setANNEEEXPERIENCE(String ANNEEEXPERIENCE) {
         this.ANNEEEXPERIENCE = ANNEEEXPERIENCE;
     }
 
@@ -181,6 +189,13 @@ public class ProspectSaveDTO {
     public void setEXPERIENCEPROFESSIONNELLE(String EXPERIENCEPROFESSIONNELLE) {
         this.EXPERIENCEPROFESSIONNELLE = EXPERIENCEPROFESSIONNELLE;
     }
+    public String getPROJETPROFESSIONNEL() {
+        return PROJETPROFESSIONNEL;
+    }
+
+    public void setPROJETPROFESSIONNEL(String PROJETPROFESSIONNEL) {
+        this.PROJETPROFESSIONNEL = PROJETPROFESSIONNEL;
+    }
 
     public String getFORMATION() {
         return FORMATION;
@@ -189,6 +204,8 @@ public class ProspectSaveDTO {
     public void setFORMATION(String FORMATION) {
         this.FORMATION = FORMATION;
     }
+    public String getCERTIFICATION(){ return CERTIFICATION;}
+    public void setCERTIFICATION(String CERTIFICATION) { this.CERTIFICATION = CERTIFICATION; }
 
     public String getLANGUE() {
         return LANGUE;
@@ -237,6 +254,10 @@ public class ProspectSaveDTO {
     public void setRl_desc(String rl_desc) {
         this.rl_desc = rl_desc;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
     @Override
     public String toString() {
@@ -256,13 +277,17 @@ public class ProspectSaveDTO {
                 ", COMPETENCETECHNIQUE='" + COMPETENCETECHNIQUE + '\'' +
                 ", DISPONIBILITE='" + DISPONIBILITE + '\'' +
                 ", EXPERIENCEPROFESSIONNELLE='" + EXPERIENCEPROFESSIONNELLE + '\'' +
+                ", PROJETPROFESSIONNEL='" + PROJETPROFESSIONNEL + '\'' +
                 ", FORMATION='" + FORMATION + '\'' +
+                ", CERTIFICATION='" + CERTIFICATION + '\'' +
                 ", LANGUE='" + LANGUE + '\'' +
                 ", MAJCV='" + MAJCV + '\'' +
                 ", MOTCLE='" + MOTCLE + '\'' +
                 ", NIVEAUACADEMIQUE='" + NIVEAUACADEMIQUE + '\'' +
                 ", rl_majcv=" + rl_majcv +
                 ", rl_desc='" + rl_desc + '\'' +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

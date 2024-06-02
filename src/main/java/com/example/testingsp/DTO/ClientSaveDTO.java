@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 
+import java.util.Date;
 import java.util.List;
 
 public class ClientSaveDTO {
@@ -20,16 +21,20 @@ public class ClientSaveDTO {
     private List<Mission> mission ;
 
     private List<Apoffres> apofres ;
+    private Date dateCreation;
+    private String userCreation;
 
     public ClientSaveDTO() {
     }
 
-    public ClientSaveDTO(String clientname, String client_add, String client_ice, List<Mission> mission, List<Apoffres> apofres) {
+    public ClientSaveDTO(String clientname, String client_add, String client_ice, List<Mission> mission, List<Apoffres> apofres, Date dateCreation, String userCreation) {
         this.clientname = clientname;
         this.client_add = client_add;
         this.client_ice = client_ice;
         this.mission = mission;
         this.apofres = apofres;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
     public String getClientname() {
@@ -71,6 +76,10 @@ public class ClientSaveDTO {
     public void setApofres(List<Apoffres> apofres) {
         this.apofres = apofres;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
 
     @Override
@@ -81,6 +90,8 @@ public class ClientSaveDTO {
                 ", client_ice='" + client_ice + '\'' +
                 ", mission=" + mission +
                 ", apofres=" + apofres +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

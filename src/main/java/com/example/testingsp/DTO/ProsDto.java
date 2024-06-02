@@ -1,13 +1,17 @@
 package com.example.testingsp.DTO;
 
+import java.util.Date;
+
 public class ProsDto {
 
     private String prospectDomaine;
     private Long count;
 
+
     public ProsDto(String prospectDomaine, Long count) {
         this.prospectDomaine = prospectDomaine;
         this.count = count;
+
     }
 
     public String getProspectDomaine() {
@@ -25,4 +29,5 @@ public class ProsDto {
     public void setCount(Long count) {
         this.count = count;
     }
+
 }

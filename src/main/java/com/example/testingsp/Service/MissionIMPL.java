@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +37,9 @@ public class MissionIMPL implements MissionService{
                 missionsaveDTO.getEntite(),
                 missionsaveDTO.getNombrej(),
                 missionsaveDTO.getMissions(),
-                missionsaveDTO.getClient()
+                missionsaveDTO.getClient(),
+                missionsaveDTO.getDateCreation(),
+                missionsaveDTO.getUserCreation()
         );
         missionRepo.save(mission);
         return  mission.getMission_ref() ;
@@ -56,7 +59,9 @@ public class MissionIMPL implements MissionService{
               i.getEntite(),
               i.getNombrej(),
               i.getMissions(),
-                    i.getClient()
+                    i.getClient(),
+                    i.getDateCreation(),
+                    i.getUserCreation()
             );
             missionDTOList.add(missionDTO);
         }
@@ -112,6 +117,7 @@ public class MissionIMPL implements MissionService{
                     ((long) rowData[1]) ,
                     (String) rowData[2],
                     ((long) rowData[3])
+
             );
             serviceCharts.add(serviceChart);
         }

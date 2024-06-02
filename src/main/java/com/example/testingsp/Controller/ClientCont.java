@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = {"http://i-team.ma"})
 @RequestMapping(path = "/api/client")
 
 public class ClientCont {

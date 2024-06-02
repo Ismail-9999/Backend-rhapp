@@ -2,8 +2,10 @@ package com.example.testingsp.Entite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.springframework.data.auditing.CurrentDateTimeProvider;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,6 +20,8 @@ public class Mission {
     private String lieuimput;
     private String entite;
     private BigDecimal nombrej;
+    private Date dateCreation;
+    private String userCreation;
 
 
     @ManyToMany (fetch = FetchType.EAGER)
@@ -29,7 +33,7 @@ public class Mission {
     private Client client ;
 
     public Mission(int mission_id, String mission_ref, String designation, String lieuimput, String entite,
-                   BigDecimal nombrej, List<Consultant> missions, Client client) {
+                   BigDecimal nombrej, List<Consultant> missions, Client client, Date dateCreation, String userCreation) {
         this.mission_id = mission_id;
         this.mission_ref = mission_ref;
         this.designation = designation;
@@ -38,9 +42,11 @@ public class Mission {
         this.nombrej = nombrej;
         this.missions = missions;
         this.client = client;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
-    public Mission(String mission_ref, String designation, String lieuimput, String entite, BigDecimal nombrej, List<Consultant> missions, Client client) {
+    public Mission(String mission_ref, String designation, String lieuimput, String entite, BigDecimal nombrej, List<Consultant> missions, Client client, Date dateCreation, String userCreation) {
         this.mission_ref = mission_ref;
         this.designation = designation;
         this.lieuimput = lieuimput;
@@ -48,6 +54,8 @@ public class Mission {
         this.nombrej = nombrej;
         this.missions = missions;
         this.client = client;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
     public Mission() {
@@ -117,6 +125,10 @@ public class Mission {
     public void setClient(Client client) {
         this.client = client;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) {this.dateCreation = dateCreation;}
+    public String getUserCreation() {return userCreation;}
+    public void setUserCreation(String userCreation) {this.userCreation = userCreation;}
 
     @Override
     public String toString() {
@@ -129,6 +141,8 @@ public class Mission {
                 ", nombrej=" + nombrej +
                 ", missions=" + missions +
                 ", client=" + client +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

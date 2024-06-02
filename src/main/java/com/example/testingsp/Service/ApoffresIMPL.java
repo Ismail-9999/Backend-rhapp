@@ -45,7 +45,9 @@ public class ApoffresIMPL implements  ApoffresService{
                 appoffresSaveDTO.getRl_aft_entretien(),
                 appoffresSaveDTO.getSort_entretien(),
                 appoffresSaveDTO.getNotif_condidat(),
-                appoffresSaveDTO.getCl_interlocu()
+                appoffresSaveDTO.getCl_interlocu(),
+                appoffresSaveDTO.getDateCreation(),
+                appoffresSaveDTO.getUserCreation()
         );
         apoffresRepo.save(apoffres) ;
         return  apoffres.getMissions();
@@ -83,7 +85,9 @@ public class ApoffresIMPL implements  ApoffresService{
                     i.getRl_aft_entretien(),
                     i.getSort_entretien(),
                     i.getNotif_condidat(),
-                    i.getCl_interlocu()
+                    i.getCl_interlocu(),
+                    i.getDateCreation(),
+                    i.getUserCreation()
             );
             apoffresDTOList.add(apoffresDTO);
         }

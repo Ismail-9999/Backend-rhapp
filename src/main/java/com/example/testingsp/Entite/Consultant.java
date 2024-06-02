@@ -2,6 +2,7 @@ package com.example.testingsp.Entite;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import org.springframework.data.auditing.CurrentDateTimeProvider;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -32,13 +33,15 @@ public class Consultant {
     private long TJM ;
 
     private long mobile;
+    private Date dateCreation;
+    private String userCreation;
 
     @ManyToMany(mappedBy = "missions", fetch = FetchType.EAGER)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Mission> mission ;
 
 
-    public Consultant(int consultantid, String consultantname, String status, String consultantcin, Date consultantbirthdate, String experiencepro, String secteuractivite, String email, String competencemetier, long TJM, long mobile, List<Mission> mission) {
+    public Consultant(int consultantid, String consultantname, String status, String consultantcin, Date consultantbirthdate, String experiencepro, String secteuractivite, String email, String competencemetier, long TJM, long mobile, List<Mission> mission, Date dateCreation, String userCreation) {
         this.consultantid = consultantid;
         this.consultantname = consultantname;
         this.status = status;
@@ -51,9 +54,11 @@ public class Consultant {
         this.TJM = TJM;
         this.mobile = mobile;
         this.mission = mission;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
-    public Consultant(String consultantname, String status, String consultantcin, Date consultantbirthdate, String experiencepro, String secteuractivite, String email, String competencemetier, long TJM, long mobile, List<Mission> mission) {
+    public Consultant(String consultantname, String status, String consultantcin, Date consultantbirthdate, String experiencepro, String secteuractivite, String email, String competencemetier, long TJM, long mobile, List<Mission> mission, Date dateCreation, String userCreation) {
         this.consultantname = consultantname;
         this.status = status;
         this.consultantcin = consultantcin;
@@ -65,6 +70,8 @@ public class Consultant {
         this.TJM = TJM;
         this.mobile = mobile;
         this.mission = mission;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
     }
 
     public Consultant() {
@@ -166,6 +173,10 @@ public class Consultant {
     public void setMission(List<Mission> mission) {
         this.mission = mission;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
     @Override
     public String toString() {
@@ -182,6 +193,8 @@ public class Consultant {
                 ", TJM=" + TJM +
                 ", mobile=" + mobile +
                 ", mission=" + mission +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

@@ -1,14 +1,18 @@
 package com.example.testingsp.DTO;
 
+import java.util.Date;
+
 public class MajProsDTO {
 
     private String rl_majcv ;
 
     private Long count ;
 
+
     public MajProsDTO(String rl_majcv, Long count) {
         this.rl_majcv = rl_majcv;
         this.count = count;
+
     }
 
     public String getMajcv() {
@@ -26,4 +30,5 @@ public class MajProsDTO {
     public void setCount(Long count) {
         this.count = count;
     }
+
 }

@@ -2,6 +2,8 @@ package com.example.testingsp.DTO;
 
 import lombok.Getter;
 
+import java.util.Date;
+
 public class TestingspDTO {
 
     private int testID ;
@@ -15,11 +17,13 @@ public class TestingspDTO {
     @Getter
     private long featuersid ;
 
+
     public TestingspDTO(int testID, String featuers, String description, long featuersid) {
         this.testID = testID;
         this.featuers = featuers;
         this.description = description;
         this.featuersid = featuersid;
+
     }
 
 
@@ -54,6 +58,7 @@ public class TestingspDTO {
     public void setFeatuersid(long featuersid) {
         this.featuersid = featuersid;
     }
+
 
     @Override
     public String toString() {

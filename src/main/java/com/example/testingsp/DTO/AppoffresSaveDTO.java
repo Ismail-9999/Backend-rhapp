@@ -34,12 +34,14 @@ public class AppoffresSaveDTO {
     private String sort_entretien ;
     private  String notif_condidat ;
     private  String cl_interlocu ;
+    private Date dateCreation;
+    private String userCreation;
 
     public AppoffresSaveDTO() {
     }
 
 
-    public AppoffresSaveDTO(String missions, Client clients, Boolean d_administratif, Boolean d_financier, Boolean cv_formater, Date consultation_date, Date heure, String consultation, Date limite_soumission, String consultant, Date date_solicit, String canal_solicit, boolean soumission, String soumi_desc, long TJM, String disponibilité, String rl_client, String rl_aft_client, Date entretien, String appl_entretien, String alrt_entretien, String rl_aft_entretien, String sort_entretien, String notif_condidat, String cl_interlocu) {
+    public AppoffresSaveDTO(String missions, Client clients, Boolean d_administratif, Boolean d_financier, Boolean cv_formater, Date consultation_date, Date heure, String consultation, Date limite_soumission, String consultant, Date date_solicit, String canal_solicit, boolean soumission, String soumi_desc, long TJM, String disponibilité, String rl_client, String rl_aft_client, Date entretien, String appl_entretien, String alrt_entretien, String rl_aft_entretien, String sort_entretien, String notif_condidat, String cl_interlocu, Date dateCreation, String userCreation) {
         this.missions = missions;
         this.clients = clients;
         D_administratif = d_administratif;
@@ -65,6 +67,9 @@ public class AppoffresSaveDTO {
         this.sort_entretien = sort_entretien;
         this.notif_condidat = notif_condidat;
         this.cl_interlocu = cl_interlocu;
+        this.dateCreation = dateCreation;
+        this.userCreation = userCreation;
+
     }
 
     public String getMissions() {
@@ -266,6 +271,10 @@ public class AppoffresSaveDTO {
     public void setCl_interlocu(String cl_interlocu) {
         this.cl_interlocu = cl_interlocu;
     }
+    public Date getDateCreation() {return dateCreation;}
+    public void setDateCreation(Date dateCreation) { this.dateCreation = dateCreation;}
+    public String getUserCreation() { return userCreation;}
+    public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
 
     @Override
@@ -296,6 +305,8 @@ public class AppoffresSaveDTO {
                 ", sort_entretien='" + sort_entretien + '\'' +
                 ", notif_condidat='" + notif_condidat + '\'' +
                 ", cl_interlocu='" + cl_interlocu + '\'' +
+                ", dateCreation='" + dateCreation + '\'' +
+                ", userCreation='" + userCreation + '\'' +
                 '}';
     }
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Date;
+
 @Entity
 public class FileEntity {
     @Id
@@ -16,12 +18,14 @@ public class FileEntity {
 
     private String prospectId;
 
+
     public FileEntity() {
     }
 
     public FileEntity(String fileName, String prospectId) {
         this.fileName = fileName;
         this.prospectId = prospectId;
+
     }
 
     public Long getId() {
@@ -47,6 +51,7 @@ public class FileEntity {
     public void setProspectId(String prospectId) {
         this.prospectId = prospectId;
     }
+
 
     @Override
     public String toString() {
