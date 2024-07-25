@@ -31,6 +31,7 @@ public interface ProspectService {
     void updateProspectStatus();
 
     List<Prospect> getProspectsWithDisponibiliteNotRelance();
+    List<Prospect> searchProspectsByKeyword(String keyword);
 
     /*List<ProspectDTO> getProspectsWithDisponibiliteNotRelance();*/
 

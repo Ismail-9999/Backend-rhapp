@@ -1,7 +1,10 @@
 package com.example.testingsp.DTO;
 
+import com.example.testingsp.Entite.Jobs;
+
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 public class ProspectSaveDTO {
 
@@ -37,8 +40,9 @@ public class ProspectSaveDTO {
     private String rl_desc ;
     private Date dateCreation;
     private String userCreation;
+    private List<Jobs> jobs;
 
-    public ProspectSaveDTO(String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION, String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation) {
+    public ProspectSaveDTO(String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION, String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation, List<Jobs> jobs) {
         this.EMAIL = EMAIL;
         this.NOM = NOM;
         this.status = status;
@@ -65,6 +69,7 @@ public class ProspectSaveDTO {
         this.rl_desc = rl_desc;
         this.dateCreation = dateCreation;
         this.userCreation = userCreation;
+        this.jobs = jobs;
     }
 
     public ProspectSaveDTO() {
@@ -259,6 +264,14 @@ public class ProspectSaveDTO {
     public String getUserCreation() { return userCreation;}
     public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
+    public List<Jobs> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Jobs> jobs) {
+        this.jobs = jobs;
+    }
+
     @Override
     public String toString() {
         return "ProspectSaveDTO{" +
@@ -288,6 +301,7 @@ public class ProspectSaveDTO {
                 ", rl_desc='" + rl_desc + '\'' +
                 ", dateCreation='" + dateCreation + '\'' +
                 ", userCreation='" + userCreation + '\'' +
+                ", jobs='" + jobs + '\'' +
                 '}';
     }
 }

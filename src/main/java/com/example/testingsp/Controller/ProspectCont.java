@@ -111,6 +111,7 @@ private ProspectService prospectService ;
                 prospect.getRl_desc(),
                 prospect.getDateCreation(),
                 prospect.getUserCreation()
+              //  prospect.getJobs()
 
         );
 
@@ -164,5 +165,19 @@ private ProspectService prospectService ;
                return ResponseEntity.notFound().build();
            }
     }
+    @GetMapping("/search")
+    @CacheEvict(value = "prospecting",allEntries = true)
+    public List<Prospect> searchProspects(@RequestParam String keyword) {
+           return prospectService.searchProspectsByKeyword(keyword);
+    }
+
+    /*@GetMapping("/search")
+    @CacheEvict(value = "prospecting",allEntries = true)
+    public List<Prospect> searchProspects(@RequestParam String keyword) {
+        List<Prospect> prospects = prospectService.searchProspectsByKeyword(keyword);
+        System.out.println("Number of prospects returned: " + prospects.size()); // Log the number of results
+        return prospects;
+    }
+     */
 
 }
