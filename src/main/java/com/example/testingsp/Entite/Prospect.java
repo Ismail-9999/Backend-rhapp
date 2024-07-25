@@ -1,12 +1,16 @@
 package com.example.testingsp.Entite;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.springframework.data.auditing.CurrentDateTimeProvider;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Table(name = "prospect")
 
 @Entity
@@ -62,10 +66,19 @@ public class Prospect {
     @Column(name="user_creation")
     private String userCreation;
 
+    @ManyToMany
+    @JoinTable(
+            name = "prospect_jobs",
+            joinColumns = @JoinColumn(name = "prospect_id"),
+            inverseJoinColumns = @JoinColumn(name = "job_id")
+    )
+    @JsonIgnoreProperties("prospects")
+    private List<Jobs> jobs;
+
     public Prospect() {
     }
 
-    public Prospect(int IDTIERS, String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION,String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation) {
+    public Prospect(int IDTIERS, String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION,String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation, List<Jobs> jobs) {
         this.IDTIERS = IDTIERS;
         this.EMAIL = EMAIL;
         this.NOM = NOM;
@@ -93,10 +106,11 @@ public class Prospect {
         this.rl_desc = rl_desc;
         this.dateCreation = dateCreation;
         this.userCreation = userCreation;
+        this.jobs = jobs;
     }
 
 
-    public Prospect(String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION, String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation) {
+    public Prospect(String EMAIL, String NOM, String status, String PAYSRESIDENCE, String SECTEURACTIVITE, long TELEPHONE, String CIN, Date dateNaissance, String PROFESSION, String SEXE, String ANNEEEXPERIENCE, String COMPETENCEMETIER, String COMPETENCETECHNIQUE, String DISPONIBILITE, String EXPERIENCEPROFESSIONNELLE, String PROJETPROFESSIONNEL, String FORMATION, String CERTIFICATION, String LANGUE, String MAJCV, String MOTCLE, String NIVEAUACADEMIQUE, Date rl_majcv, String rl_desc, Date dateCreation, String userCreation, List<Jobs> jobs) {
         this.EMAIL = EMAIL;
         this.NOM = NOM;
         this.status = status;
@@ -123,6 +137,7 @@ public class Prospect {
         this.rl_desc = rl_desc;
         this.dateCreation = dateCreation;
         this.userCreation = userCreation;
+        this.jobs = jobs;
     }
 
     public int getIDTIERS() {
@@ -326,6 +341,13 @@ public class Prospect {
     public String getUserCreation() { return userCreation;}
     public void setUserCreation(String userCreation) { this.userCreation = userCreation; }
 
+    public List<Jobs> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Jobs> jobs) {
+        this.jobs = jobs;
+    }
 
     @Override
     public String toString() {
@@ -357,6 +379,7 @@ public class Prospect {
                 ", rl_desc='" + rl_desc + '\'' +
                 ", dateCreation='" + dateCreation + '\'' +
                 ", userCreation='" + userCreation + '\'' +
+                ", jobs='" + jobs + '\'' +
                 '}';
     }
 }

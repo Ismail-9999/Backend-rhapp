@@ -63,7 +63,8 @@ public class ProspectIMPL implements  ProspectService {
                 prospectSaveDTO.getRl_majcv(),
                 prospectSaveDTO.getRl_desc(),
                 prospectSaveDTO.getDateCreation(),
-                prospectSaveDTO.getUserCreation()
+                prospectSaveDTO.getUserCreation(),
+                prospectSaveDTO.getJobs()
 
 
          );
@@ -108,6 +109,7 @@ public class ProspectIMPL implements  ProspectService {
                 i.getRl_desc(),
                 i.getDateCreation(),
                 i.getUserCreation()
+                //i.getJobs()
         );
         prospectDTOList.add(prospectDTO);
     }
@@ -144,6 +146,7 @@ public class ProspectIMPL implements  ProspectService {
             prospect.setCIN(prospectUpDTO.getCIN());
             prospect.setRl_majcv(prospectUpDTO.getRl_majcv());
             prospect.setRl_desc(prospectUpDTO.getRl_desc());
+            prospect.setJobs(prospectUpDTO.getJobs());
 
 
             prospectRepo.save(prospect);
@@ -279,5 +282,15 @@ public class ProspectIMPL implements  ProspectService {
         Optional<Prospect> prospectOptional = prospectRepo.findById(id);
         return prospectOptional.map(Prospect::getNOM).orElse(null);
     }
+    public List<Prospect> searchProspectsByKeyword(String keyword) {
+        return prospectRepo.findByKeyword(keyword);
+    }
+
+    /*public List<Prospect> searchProspectsByKeyword(String keyword) {
+        List<Prospect> prospects = prospectRepo.findByMOTCLEContainingIgnoreCase(keyword);
+        System.out.println("Number of prospects found:" +prospects.size());
+        return prospects;
+    }
+     */
 }
 
